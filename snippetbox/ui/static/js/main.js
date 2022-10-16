@@ -5,4 +5,4 @@ for (var i = 0; i < navLinks.length; i++) {
 		link.classList.add("live");
 		break;
 	}
-}
+} 
