@@ -4,14 +4,16 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/alexedwards/scs/v2"
 	"github.com/go-playground/form/v4"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"snippetbox.sultan.net/cmd/pgxstore"
+	"snippetbox.sultan.net/cmd/scs"
 	"snippetbox.sultan.net/internal/models"
+	"time"
 )
 
 var dsnpool *pgxpool.Pool
@@ -22,7 +24,7 @@ type application struct {
 	snippets       *models.SnippetModel
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
-	SessionManager *scs.SessionManager
+	sessionManager *scs.SessionManager
 }
 
 func main() {
@@ -50,8 +52,8 @@ func main() {
 	formDecoder := form.NewDecoder()
 
 	sessionManager := scs.New()
-	//sessionManager.Store = pgxstore
-	//sessionManager.Lifetime = 12 * time.Hour
+	sessionManager.Store = pgxstore.New(db)
+	sessionManager.Lifetime = 12 * time.Hour
 
 	app := &application{
 		errorLog:       errorLog,
@@ -59,7 +61,7 @@ func main() {
 		snippets:       &models.SnippetModel{DB: db},
 		templateCache:  templateCache,
 		formDecoder:    formDecoder,
-		SessionManager: sessionManager,
+		sessionManager: sessionManager,
 	}
 	srv := &http.Server{
 		Addr:     *addr,
