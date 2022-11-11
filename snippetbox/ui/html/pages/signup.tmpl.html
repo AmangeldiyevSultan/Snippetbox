@@ -5,9 +5,9 @@
 
     <div>
         <label>Name:</label>
-        {{with .Form.FieldErrors.name}}
-        <label class='error'>{{.}}</label>
-        {{end}}
+<!--        {{with .Form.FieldErrors.name}}-->
+<!--        <label class='error'>{{.}}</label>-->
+<!--        {{end}}-->
         <input type='text' name='name' value='{{.Form.Name}}'>
     </div>
     <div>
@@ -19,9 +19,9 @@
     </div>
     <div>
         <label>Password:</label>
-        {{with .Form.FieldErrors.password}}
-        <label class='error'>{{.}}</label>
-        {{end}}
+<!--        {{with .Form.FieldErrors.password}}-->
+<!--        <label class='error'>{{.}}</label>-->
+<!--        {{end}}-->
         <input type='password' name='password'>
     </div>
     <div>
@@ -29,4 +29,5 @@
     </div>
 </form>
 {{end}}
+
 

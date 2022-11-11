@@ -29,7 +29,7 @@ func (m *UserModel) Insert(name, email, password string) error {
 		return err
 	}
 
-	stmt := `INSERT INTO users (name, email, hashed_password, created) VALUES($1, $2, $3, current_timestamp) returning id`
+	stmt := `INSERT INTO users (name, email, hashed_password, created, status) VALUES($1, $2, $3, current_timestamp, 'user') returning id`
 
 	var id int
 	err = m.DB.QueryRow(context.Background(), stmt, name, email, string(hashedPassword)).Scan(&id)
